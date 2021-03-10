@@ -121,10 +121,15 @@ namespace CropsNDrops.Scripts.Player
 		{
 			_caughtObject.transform.position = eventPosition;
 			
-			GameObject hitObject = Utils.GetRaycastHitObject(_caughtObject.transform.position);
+			GameObject hitObject = Utils.GetRaycastHitObject(_caughtObject.transform.position, false, true);
 
 			if (!hitObject)
 			{
+				if (_caughtObjectAsItem)
+				{ 
+					_caughtObjectAsItem.ActiveSelector = false;
+				}
+				
 				return;
 			}
 			
@@ -137,21 +142,13 @@ namespace CropsNDrops.Scripts.Player
 					_caughtObjectAsItem.ActiveSelector = true;
 					return;
 				}
-				default:
-				{
-					if (_caughtObjectAsItem)
-					{ 
-						_caughtObjectAsItem.ActiveSelector = false;
-					}
-					return;
-				}
 			}
 		}
 
 		private void DropItem()
 		{
 			_caughtObjectAsItem.IsCaught = false;
-
+			
 			GameObject hitObject = Utils.GetRaycastHitObject(_caughtObject.transform.position);
 
 			if (!hitObject)

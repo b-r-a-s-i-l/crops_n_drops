@@ -4,7 +4,7 @@ namespace CropsNDrops.Scripts.Tools
 {
 	public class Utils : MonoBehaviour
 	{
-		public static GameObject GetRaycastHitObject(Vector3 eventData, bool hitUIObject = false)
+		public static GameObject GetRaycastHitObject(Vector3 eventData, bool hitUIObject = false, bool debugRay = false)
 		{
 			if (hitUIObject)
 			{
@@ -12,6 +12,11 @@ namespace CropsNDrops.Scripts.Tools
 			}
 			
 			Ray ray = GameManager.Instance.Camera.ScreenPointToRay(eventData);
+
+			if (debugRay)
+			{
+				Debug.DrawRay(ray.origin, ray.direction * 100, Color.magenta);
+			}
 
 			if (!Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, float.PositiveInfinity))
 			{
