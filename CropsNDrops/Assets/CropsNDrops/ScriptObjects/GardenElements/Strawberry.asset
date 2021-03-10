@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 972255bcd31048509b4f2597ba16cca5, type: 3}
   m_Name: Strawberry
   m_EditorClassIdentifier: 
+  type: 0
   sprites:
   - {fileID: 2267324014195092112, guid: 1ffe0b8f75649d24ea8310705fab7a7f, type: 3}
   - {fileID: 592539525164769842, guid: 1ffe0b8f75649d24ea8310705fab7a7f, type: 3}

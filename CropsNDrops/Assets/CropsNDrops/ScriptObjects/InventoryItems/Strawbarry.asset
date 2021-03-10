@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8455ed80e7bd46b3a94fa74c9baabe3e, type: 3}
-  m_Name: StrawbarrySeed
+  m_Name: Strawbarry
   m_EditorClassIdentifier: 
   sprite: {fileID: -7067618530285761763, guid: 1ffe0b8f75649d24ea8310705fab7a7f, type: 3}
   plantDisplay: {fileID: 11400000, guid: 3b5e7dff40590e847b2f17926c1d5dfe, type: 2}

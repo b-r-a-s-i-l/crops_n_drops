@@ -113,8 +113,8 @@ namespace CropsNDrops.Scripts.Player
 
 		private void SetAsGardenObject()
 		{
-			GardenObject gardenObject = _caughtObject.GetComponent<GardenObject>();
-			gardenObject.TakeTheBasket();
+			GardenPlant gardenPlant = _caughtObject.GetComponent<GardenPlant>();
+			gardenPlant.TakeTheBasket();
 		}
 
 		private void DragItem(Vector2 eventPosition)
@@ -142,6 +142,11 @@ namespace CropsNDrops.Scripts.Player
 					_caughtObjectAsItem.ActiveSelector = true;
 					return;
 				}
+				case 10: //Garden Object
+				{
+					_caughtObjectAsItem.ActiveSelector = true;
+					return;
+				}
 			}
 		}
 
@@ -163,7 +168,12 @@ namespace CropsNDrops.Scripts.Player
 				case 9: //Garden Place
 				{
 					DropOnPlace(hitObject);
-					break;
+					return;
+				}
+				case 10: //Garden Object
+				{
+					DropOnObject(hitObject);
+					return;
 				}
 			}
 		}
@@ -172,6 +182,12 @@ namespace CropsNDrops.Scripts.Player
 		{
 			GardenPlace place = hitObject.GetComponent<GardenPlace>();
 			place.UpdateCondition(_caughtObjectAsItem);
+		}
+		
+		private void DropOnObject(GameObject hitObject)
+		{
+			//GardenPlant gardenPlant = hitObject.GetComponent<GardenPlant>();
+			//gardenPlant.UpdateCondition(_caughtObjectAsItem);
 		}
 
 	}

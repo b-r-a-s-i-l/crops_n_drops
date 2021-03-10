@@ -3,7 +3,8 @@
 	public enum ItemType
 	{
 		PLANT,
-		WATER,
-		SUNSHINE,
+		ELEMENTAL
+		//WATER,
+		//SUNSHINE
 	}
 }

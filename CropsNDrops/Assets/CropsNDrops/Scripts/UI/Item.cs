@@ -17,7 +17,6 @@ namespace CropsNDrops.Scripts.UI
 		[SerializeField] private Transform _parent = default;
 		[SerializeField] private ItemType _type = default;
 		[SerializeField] private bool _isCaught = default;
-		//[SerializeField] private ActionArea _area = default;
 
 		private void Update()
 		{
@@ -36,7 +35,7 @@ namespace CropsNDrops.Scripts.UI
 				name = display.name;
 				_parent = transform.parent;
 				_image.sprite = _display.sprite;
-				_type = _display.type;
+				_type = _display.Type;
 				//_area = _display.area;
 				_isCaught = false;
 				transform.localPosition = Vector3.zero;

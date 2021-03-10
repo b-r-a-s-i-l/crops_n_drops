@@ -5,7 +5,7 @@ using UnityEngine;
 namespace CropsNDrops.Scripts.Scriptables.Inventory
 {
 	[CreateAssetMenu(fileName = "New Seed", menuName = "Seed Item")]
-	public class SeedItem : ItemDisplay
+	public class PlantItemDisplay : ItemDisplay
 	{
 		public PlantDisplay plantDisplay = default;
 	}

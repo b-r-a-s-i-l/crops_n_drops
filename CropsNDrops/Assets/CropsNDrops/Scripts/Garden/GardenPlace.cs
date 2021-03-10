@@ -12,8 +12,7 @@ namespace CropsNDrops.Scripts.Garden
 	public class GardenPlace : MonoBehaviour
 	{
 		[Header("Definitions")]
-		[SerializeField] private GardenObject _gardenObjectPrefab = default;
-		[SerializeField] private GameObject _selector = default;
+		[SerializeField] private GardenPlant gardenPlantPrefab = default;
 		[SerializeField] private Animator _fx = default;
 		[SerializeField] private SpriteRenderer _renderer = default;
 		[SerializeField] private Sprite[] _sprites = default;
@@ -21,7 +20,7 @@ namespace CropsNDrops.Scripts.Garden
 		[Header("Informations")]
 		[SerializeField] private Vector2 _positionId = default;
 		[SerializeField] private PlaceCondition _condition = default;
-		[SerializeField] private GardenObject _planted = default;
+		[SerializeField] private GardenPlant _planted = default;
 		[SerializeField] private List<GardenPlace> _neighbours = new List<GardenPlace>();
 		public void Inicialize(Vector3 position)
 		{
@@ -57,28 +56,30 @@ namespace CropsNDrops.Scripts.Garden
 			{
 				case ItemType.PLANT:
 				{
+					PlantItemDisplay plant = item.Display as PlantItemDisplay;
+					Destroy(item.gameObject);
 					ExecuteAnimation("Smoke");
-					SeedItem seed = item.Display as SeedItem;
-					Destroy(item.gameObject);
-					PlantOnMe(seed.plantDisplay);
+					PlantOnMe(plant.plantDisplay);
 					Condition = PlaceCondition.NORMAL;
-					//Destroy(item.gameObject);
+					
 					return;
 				}
-				case ItemType.WATER:
-				{
-					ExecuteAnimation("Water");
-					Condition = PlaceCondition.VERYWET;
-					Destroy(item.gameObject);
-					return;
-				}
-				case ItemType.SUNSHINE:
-				{
-					ExecuteAnimation("Sunshine");
-					Condition = PlaceCondition.VERYDRY;
-					Destroy(item.gameObject);
-					return;
-				}
+				// case ItemType.WATER:
+				// {
+				// 	Destroy(item.gameObject);
+				// 	ExecuteAnimation("Water");
+				// 	Condition = PlaceCondition.VERYWET;
+				// 	
+				// 	return;
+				// }
+				// case ItemType.SUNSHINE:
+				// {
+				// 	Destroy(item.gameObject);
+				// 	ExecuteAnimation("Sunshine");
+				// 	Condition = PlaceCondition.VERYDRY;
+				// 	
+				// 	return;
+				// }
 			}
 		}
 		
@@ -91,18 +92,19 @@ namespace CropsNDrops.Scripts.Garden
 					//não rola
 					return;
 				}
-				case ItemType.WATER:
-				{
-					//vai dar merda
-					return;
-				}
-				case ItemType.SUNSHINE:
-				{
-					ExecuteAnimation("Sunshine");
-					Condition = PlaceCondition.NORMAL;
-					Destroy(item.gameObject);
-					return;
-				}
+				// case ItemType.WATER:
+				// {
+				// 	//vai dar merda
+				// 	return;
+				// }
+				// case ItemType.SUNSHINE:
+				// {
+				// 	Destroy(item.gameObject);
+				// 	ExecuteAnimation("Sunshine");
+				// 	Condition = PlaceCondition.NORMAL;
+				// 	
+				// 	return;
+				// }
 			}
 		}
 		
@@ -115,26 +117,27 @@ namespace CropsNDrops.Scripts.Garden
 					//não rola
 					return;
 				}
-				case ItemType.WATER:
-				{
-					ExecuteAnimation("Water");
-					Condition = PlaceCondition.NORMAL;
-					Destroy(item.gameObject);
-					return;
-				}
-				case ItemType.SUNSHINE:
-				{
-					//vaidar merda
-					return;
-				}
+				// case ItemType.WATER:
+				// {
+				// 	Destroy(item.gameObject);
+				// 	ExecuteAnimation("Water");
+				// 	Condition = PlaceCondition.NORMAL;
+				// 	
+				// 	return;
+				// }
+				// case ItemType.SUNSHINE:
+				// {
+				// 	//vaidar merda
+				// 	return;
+				// }
 			}
 		}
 
 		private void PlantOnMe(PlantDisplay display)
 		{
-			GardenObject gardenObject = Instantiate(GardenObjectPrefab, transform);
-			gardenObject.Initialize(display);
-			Planted = gardenObject;
+			GardenPlant gardenPlant = Instantiate(GardenPlantPrefab, transform);
+			gardenPlant.Initialize(display);
+			Planted = gardenPlant;
 		}
 
 		private void ExecuteAnimation(string id)
@@ -147,12 +150,12 @@ namespace CropsNDrops.Scripts.Garden
 			get { return _positionId; }
 		}
 
-		public GardenObject GardenObjectPrefab
+		public GardenPlant GardenPlantPrefab
 		{
-			get { return _gardenObjectPrefab; }
+			get { return gardenPlantPrefab; }
 		}
 
-		public GardenObject Planted
+		public GardenPlant Planted
 		{
 			get { return _planted; }
 			set { _planted = value; }

@@ -7,9 +7,13 @@ namespace CropsNDrops.Scripts.Scriptables.Inventory
 	{
 		public class ItemDisplay : ScriptableObject
 		{
+			private ItemType _type = default;
 			public Sprite sprite = default;
-			public ItemType type = default;
-			//public ActionArea area = default;
+			public ItemType Type
+			{
+				get { return _type; }
+				set { _type = value; }
+			}
 		}
 	}
 }

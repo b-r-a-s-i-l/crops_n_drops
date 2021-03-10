@@ -1,4 +1,5 @@
-﻿using CropsNDrops.Scripts.Scriptables.Inventory.CropsNDrops.Scripts.Scriptables;
+﻿using CropsNDrops.Scripts.Scriptables.Inventory;
+using CropsNDrops.Scripts.Scriptables.Inventory.CropsNDrops.Scripts.Scriptables;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -10,7 +11,7 @@ namespace CropsNDrops.Scripts.UI
 	    [Header("Definitions")]
 	    [SerializeField] private Text _blockCount = default;
 	    [SerializeField] private Slot[] _slots = default;
-	    [SerializeField] private Item _itemPrefab = default; 
+	    [SerializeField] private Item[] _itemPrefabs = default; 
 	    [SerializeField] private ItemDisplay[] _displays = default;
 	   
 	    [Header("Informations")]
@@ -34,16 +35,34 @@ namespace CropsNDrops.Scripts.UI
 
 	    private void GerateItemInSlot(Slot slot)
 	    {
-		    Item item = Instantiate(_itemPrefab, slot.transform);
-		    item.Initialize(RandomizeItemType());
-		    slot.Item = item;
+		    ItemDisplay display = RandomizeItem();
+		    
+		    switch (display)
+		    {
+			    case PlantItemDisplay _:
+			    {
+				    PlantItem prefab = _itemPrefabs[0] as PlantItem;
+				    Item item = Instantiate(prefab, transform);
+				    item.Initialize(display);
+				    slot.Item = item;
+				    break;
+			    }
+			    case ElementalItemDisplay _:
+			    {
+				    ElementItem element = _itemPrefabs[1] as ElementItem;
+				    Instantiate(element, transform);
+				    slot.Item = element;
+				    break;
+			    }
+		    }
+		   
 		    _numberOfBlocks--;
 	    }
 
-	    private ItemDisplay RandomizeItemType()
+	    private ItemDisplay RandomizeItem()
 	    {
 		    int i = Random.Range(0, _displays.Length);
-
+		    
 		    return _displays[i];
 	    }
 
