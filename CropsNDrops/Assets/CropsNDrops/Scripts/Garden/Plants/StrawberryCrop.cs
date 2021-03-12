@@ -1,4 +1,4 @@
-﻿using CropsNDrops.Scripts.UI;
+﻿using CropsNDrops.Scripts.Inventory;
 
 namespace CropsNDrops.Scripts.Garden.Plants
 {

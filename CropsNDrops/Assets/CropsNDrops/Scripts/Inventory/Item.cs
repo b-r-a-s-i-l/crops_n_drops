@@ -4,7 +4,7 @@ using CropsNDrops.Scripts.Tools;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CropsNDrops.Scripts.UI
+namespace CropsNDrops.Scripts.Inventory
 {
 	public class Item : MonoBehaviour
 	{
@@ -13,7 +13,6 @@ namespace CropsNDrops.Scripts.UI
 		[SerializeField] private Image _image = default;
 
 		[Header("Informations")]
-		[SerializeField] private ItemDisplay _display = default;
 		[SerializeField] private Transform _parent = default;
 		[SerializeField] private ItemType _type = default;
 		[SerializeField] private bool _isCaught = default;
@@ -26,46 +25,34 @@ namespace CropsNDrops.Scripts.UI
 			}
 		}
 		
-		public void Initialize(ItemDisplay display)
-		{
-			_display = display;
-			
-			if (_display)
-			{
-				name = display.name;
-				_parent = transform.parent;
-				_image.sprite = _display.sprite;
-				_type = _display.Type;
-				//_area = _display.area;
-				_isCaught = false;
-				transform.localPosition = Vector3.zero;
-			}
-			else
-			{
-				Destroy(gameObject);
-			}
-		}
-
-		
-
-		public bool IsCaught
-		{
-			set { _isCaught = value; }
-		}
-
-		public ItemType Type
-		{
-			get { return _type; }
-		}
-
-		public ItemDisplay Display
-		{
-			get { return _display; }
-		}
+		public virtual void Initialize(ItemDisplay display) { }
 
 		public bool ActiveSelector
 		{
 			set { _selector.SetActive((value)); }
+		}
+		
+		public Image Image
+		{
+			get { return _image; }
+			set { _image = value; }
+		}
+
+		public Transform Parent
+		{
+			get { return _parent; }
+			set { _parent = value; }
+		}
+		
+		public ItemType Type
+		{
+			get { return _type; }
+			set { _type = value; }
+		}
+
+		public bool IsCaught
+		{
+			set { _isCaught = value; }
 		}
 	}
 }

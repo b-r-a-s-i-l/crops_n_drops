@@ -1,5 +1,5 @@
 ﻿using CropsNDrops.Scripts.Garden;
-using CropsNDrops.Scripts.UI;
+using CropsNDrops.Scripts.Inventory;
 using UnityEngine;
 
 namespace CropsNDrops.Scripts

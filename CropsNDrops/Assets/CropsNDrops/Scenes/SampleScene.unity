@@ -2551,7 +2551,7 @@ MonoBehaviour:
   - {fileID: 2011143625}
   _itemPrefabs:
   - {fileID: -3298019835599433403, guid: 0f4c0b832789d4f468d88077b1e2f01e, type: 3}
-  - {fileID: -3298019835599433403, guid: b33bf97f7aa375444a86c04f5ebb97d7, type: 3}
+  - {fileID: -4988113912662679687, guid: b33bf97f7aa375444a86c04f5ebb97d7, type: 3}
   _displays:
   - {fileID: 11400000, guid: 2cfbdf27f83fbaa40aa6ed451f709204, type: 2}
   - {fileID: 11400000, guid: 143227a6b3a189c4593a8a4b36bd69ae, type: 2}

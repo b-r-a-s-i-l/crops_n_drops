@@ -1,7 +1,7 @@
 ﻿using System;
 using CropsNDrops.Scripts.Enum;
+using CropsNDrops.Scripts.Inventory;
 using CropsNDrops.Scripts.Scriptables.Garden;
-using CropsNDrops.Scripts.UI;
 using UnityEngine;
 
 namespace CropsNDrops.Scripts.Garden

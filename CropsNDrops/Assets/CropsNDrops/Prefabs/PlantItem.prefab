@@ -105,10 +105,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _selector: {fileID: 8943837547924201805}
   _image: {fileID: 2875940826826662756}
-  _display: {fileID: 0}
   _parent: {fileID: 0}
   _type: 0
   _isCaught: 0
+  _plantDisplay: {fileID: 0}
 --- !u!1 &8943837547924201805
 GameObject:
   m_ObjectHideFlags: 0

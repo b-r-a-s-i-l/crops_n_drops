@@ -2,10 +2,10 @@
 using CropsNDrops.Scripts.Enum;
 using CropsNDrops.Scripts.Garden;
 using CropsNDrops.Scripts.Input;
+using CropsNDrops.Scripts.Inventory;
 using CropsNDrops.Scripts.Scriptables.Inventory;
 using CropsNDrops.Scripts.Scriptables.Inventory.CropsNDrops.Scripts.Scriptables;
 using CropsNDrops.Scripts.Tools;
-using CropsNDrops.Scripts.UI;
 using UnityEngine;
 
 namespace CropsNDrops.Scripts.Player

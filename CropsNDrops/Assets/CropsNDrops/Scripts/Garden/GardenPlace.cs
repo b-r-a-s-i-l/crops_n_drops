@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using CropsNDrops.Scripts.Enum;
+using CropsNDrops.Scripts.Inventory;
 using CropsNDrops.Scripts.Scriptables.Garden;
 using CropsNDrops.Scripts.Scriptables.Inventory;
-using CropsNDrops.Scripts.UI;
 using UnityEngine;
 
 namespace CropsNDrops.Scripts.Garden
@@ -56,10 +56,10 @@ namespace CropsNDrops.Scripts.Garden
 			{
 				case ItemType.PLANT:
 				{
-					PlantItemDisplay plant = item.Display as PlantItemDisplay;
+					//PlantItemDisplay plant = item.Display as PlantItemDisplay;
 					Destroy(item.gameObject);
 					ExecuteAnimation("Smoke");
-					PlantOnMe(plant.plantDisplay);
+					//PlantOnMe(plant.plantDisplay);
 					Condition = PlaceCondition.NORMAL;
 					
 					return;
