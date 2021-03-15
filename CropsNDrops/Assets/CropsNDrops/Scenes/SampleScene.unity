@@ -2660,10 +2660,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df5ba82766449d59dd811e982005303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gardenPlacePrefab: {fileID: 5528365224188040659, guid: ba5871b42a1375f459150feadf6e1662,
-    type: 3}
-  _gardenFencePrefab: {fileID: 2420460959812690507, guid: 4237c9b8740d2ae4cba1c68232824c05,
-    type: 3}
+  _gardenPrefabs:
+  - {fileID: 2420460959812690507, guid: 4237c9b8740d2ae4cba1c68232824c05, type: 3}
+  - {fileID: 5528365224188040659, guid: ba5871b42a1375f459150feadf6e1662, type: 3}
+  _fencesDisplay: {fileID: 11400000, guid: 268f3a459ad539e43b58f003cf803a5e, type: 2}
   _gridSizeX: 0
   _gridSizeY: 0
   _xOffset: -1.5

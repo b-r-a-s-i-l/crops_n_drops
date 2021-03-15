@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ea5fd7e9ae54eeb876dd0e5ca4d64e7, type: 3}
+  m_Name: SummerLands
+  m_EditorClassIdentifier: 
+  normal: {fileID: -3251480385597435562, guid: 7855d84a466607945a86f655428d1bf4, type: 3}
+  wet: {fileID: -7847054051714445677, guid: 7855d84a466607945a86f655428d1bf4, type: 3}
+  dry: {fileID: 2211526651794533187, guid: 7855d84a466607945a86f655428d1bf4, type: 3}

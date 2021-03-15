@@ -1,21 +1,25 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CropsNDrops.Scripts.Enum;
+using CropsNDrops.Scripts.Scriptables.Garden;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CropsNDrops.Scripts.Garden
 {
 	public class GardenManager : MonoBehaviour
 	{
 		[Header("Definitions")]
-		[SerializeField] private GardenPlace _gardenPlacePrefab = default;
-		[SerializeField] private GardenFence _gardenFencePrefab = default;
-		
+		[SerializeField] private GardenStructures[] _gardenPrefabs = default;
+		[SerializeField] private FenceDisplay _fencesDisplay = default;
+
+
 		[Header("Informations")]
 		[SerializeField] private int _gridSizeX = default;
 		[SerializeField] private int _gridSizeY = default;
 		[SerializeField] private float _xOffset = default;
 		[SerializeField] private float _yOffset = default;
-		[SerializeField] private List<GardenPlace> _allPlaces = new List<GardenPlace>();
+		[FormerlySerializedAs("_allPlaces"),SerializeField] private List<GardenLand> _allLands = new List<GardenLand>();
 		
 		public void Initialize(int width, int height)
 		{
@@ -23,7 +27,6 @@ namespace CropsNDrops.Scripts.Garden
 			_gridSizeY = height;
 			AdjustGardenOffset();
 			CreateGarden(_gridSizeX, _gridSizeY);
-			SetNeighboursOfPlaces();
 		}
 
 		private void AdjustGardenOffset()
@@ -48,80 +51,140 @@ namespace CropsNDrops.Scripts.Garden
 		
 		private void CreateGarden(int maxSizeX, int maxSizeY)
 		{
-			for (int x = 0; x < maxSizeX; x++)
+			for (int x = -1; x <= maxSizeX; x++)
 			{
-				for (int y = 0; y < maxSizeY; y++)
+				for (int y = -1; y <= maxSizeY; y++)
 				{
-					Vector3 position = new Vector3(x, y);
-					GardenPlace place = Instantiate(_gardenPlacePrefab, transform);
-					place.Inicialize(position);
-					_allPlaces.Add(place);
-					
-					CheckNeedFenceThisPosition(x, y);
+					if (x == -1)
+					{
+						if (y == -1)
+						{
+							// cerca inferior esquerda
+							if (GetPrefabOfStruture(StrutureType.FENCE) is GardenFence fence)
+							{
+								GardenFence instance = Instantiate(fence, transform);
+								instance.Initialize(x,y);
+								instance.SetFence(_fencesDisplay.bottomLeft, FenceDirection.BOTTOM_LEFT);
+							}
+						}
+						else if (y == maxSizeY)
+						{
+							// cerca superior esquerda
+							if (GetPrefabOfStruture(StrutureType.FENCE) is GardenFence fence)
+							{
+								GardenFence instance = Instantiate(fence, transform);
+								instance.Initialize(x,y);
+								instance.SetFence(_fencesDisplay.topLeft, FenceDirection.TOP_LEFT);
+							}
+						}
+						else
+						{
+							// cerca esquerda
+							if (GetPrefabOfStruture(StrutureType.FENCE) is GardenFence fence)
+							{
+								GardenFence instance = Instantiate(fence, transform);
+								instance.Initialize(x,y);
+								instance.SetFence(_fencesDisplay.left, FenceDirection.LEFT);
+							}
+						}
+					}
+					if (x >= 0 && x < maxSizeX)
+					{
+						if (y == -1)
+						{
+							// cerca baixa
+							if (GetPrefabOfStruture(StrutureType.FENCE) is GardenFence fence)
+							{
+								GardenFence instance = Instantiate(fence, transform);
+								instance.Initialize(x,y);
+								instance.SetFence(_fencesDisplay.bottomMiddle, FenceDirection.BOTTOM_MIDDLE);
+							}
+						}
+						else if (y == maxSizeY)
+						{
+							// creca alta
+							if (GetPrefabOfStruture(StrutureType.FENCE) is GardenFence fence)
+							{
+								GardenFence instance = Instantiate(fence, transform);
+								instance.Initialize(x,y);
+								instance.SetFence(_fencesDisplay.topMiddle, FenceDirection.TOP_MIDDLE);
+							}
+						}
+						else
+						{
+							//terreno
+							if (GetPrefabOfStruture(StrutureType.LAND) is GardenLand land)
+							{
+								GardenLand instance = Instantiate(land, transform);
+								instance.Initialize(x,y);
+								_allLands.Add(instance);
+							}
+						}
+					}
+					if (x == maxSizeX)
+					{
+						if (y == -1)
+						{
+							// cerca inferior direita
+							if (GetPrefabOfStruture(StrutureType.FENCE) is GardenFence fence)
+							{
+								GardenFence instance = Instantiate(fence, transform);
+								instance.Initialize(x,y);
+								instance.SetFence(_fencesDisplay.bottomRight, FenceDirection.BOTTOM_RIGHT);
+							}
+						}
+						else if (y == maxSizeY)
+						{
+							// cerca superior direita
+							if (GetPrefabOfStruture(StrutureType.FENCE) is GardenFence fence)
+							{
+								GardenFence instance = Instantiate(fence, transform);
+								instance.Initialize(x,y);
+								instance.SetFence(_fencesDisplay.topRight, FenceDirection.TOP_RIGHT);
+							}
+						}
+						else
+						{
+							// cerca direito
+							if (GetPrefabOfStruture(StrutureType.FENCE) is GardenFence fence)
+							{
+								GardenFence instance = Instantiate(fence, transform);
+								instance.Initialize(x,y);
+								instance.SetFence(_fencesDisplay.right, FenceDirection.RIGHT);
+							}
+						}
+					}
 				}
 			}
+			
+			SetNeighborhoods();
 		}
 
-		private void CheckNeedFenceThisPosition(int x, int y)
+		private GardenStructures GetPrefabOfStruture(StrutureType type)
 		{
-			if (x == 0)
+			foreach (GardenStructures t in _gardenPrefabs)
 			{
-				if (y == 0)
+				if (t is GardenLand && type == StrutureType.LAND)
 				{
-					PutFence(x - 1, y - 1, FenceDirection.BUTTON_LEFT);
+					return t;
 				}
-				if (y <= _gridSizeY - 1)
+				if (t is GardenFence && type == StrutureType.FENCE)
 				{
-					PutFence(x - 1, y, FenceDirection.LEFT);
-				}
-				if (y == _gridSizeY - 1)
-				{
-					PutFence(x - 1, y + 1, FenceDirection.TOP_LEFT);
+					return t;
 				}
 			}
-			if (x >= 0 && x <= _gridSizeX - 1)
-			{
-				if (y == 0)
-				{
-					PutFence(x, y - 1, FenceDirection.BUTTON_MIDDLE);
-				}
-				if (y == _gridSizeY - 1)
-				{
-					PutFence(x, y + 1, FenceDirection.TOP_MIDDLE);
-				}	
-			}
-			if (x == _gridSizeX - 1)
-			{
-				if (y == 0)
-				{
-					PutFence(x + 1, y - 1, FenceDirection.BUTTON_RIGHT);
-				}
-				if (y <= _gridSizeY - 1)
-				{
-					PutFence(x + 1, y, FenceDirection.RIGHT);
-				}
-				if (y == _gridSizeY - 1)
-				{
-					PutFence(x + 1, y + 1, FenceDirection.TOP_RIGHT);
-				}
-			}
+
+			return null;
 		}
 
-		private void PutFence(int x, int y, FenceDirection direction )
-		{
-			Vector3 position = new Vector3(x, y);
-			GardenFence fence = Instantiate(_gardenFencePrefab, transform);
-			fence.PutMe(position, direction);
-		}
-		
-		 private void SetNeighboursOfPlaces()
+		 private void SetNeighborhoods()
 		 {
-		 	foreach (GardenPlace place in _allPlaces)
+		 	foreach (GardenLand land in _allLands)
 		 	{
-		 		List<GardenPlace> neighbours = new List<GardenPlace>();
-		 		Vector2 placeId = place.PositionId;
-		 		int xOfPlace = (int) placeId.x;
-		 		int yOfPlace = (int) placeId.y;
+		 		List<GardenLand> neighbours = new List<GardenLand>();
+		 		Vector2 placeId = land.Position;
+		 		int x = (int) placeId.x;
+		 		int y = (int) placeId.y;
 		 	
 		 		for (int i = -1; i <= 1; i++)
 		 		{
@@ -130,45 +193,48 @@ namespace CropsNDrops.Scripts.Garden
 		 				int xOfNeighbour = default;
 		 				int yOfNeighbour = default;
 		 				
-		 				if (xOfPlace == 0)
+		 				if (x == 0)
 		 				{ 
-		 					xOfNeighbour = xOfPlace + i;
+		 					xOfNeighbour = x + i;
 		 				}
-		 				else if (xOfPlace > 0 && xOfPlace < _gridSizeX - 1)
+		 				else if (x > 0 && x < _gridSizeX - 1)
 		 				{
-		 					xOfNeighbour = (xOfPlace + i + _gridSizeX) % _gridSizeX;
+		 					xOfNeighbour = (x + i + _gridSizeX) % _gridSizeX;
 		 				}
-		 				else if (xOfPlace == _gridSizeX - 1)
+		 				else if (x == _gridSizeX - 1)
 		 				{
-		 					xOfNeighbour = xOfPlace + i;
+		 					xOfNeighbour = x + i;
 		 				}
 		 				
-		 				if (yOfPlace == 0)
+		 				if (y == 0)
 		 				{
-		 					yOfNeighbour = yOfPlace + j;
+		 					yOfNeighbour = y + j;
 		 				}
-		 				else if (yOfPlace > 0 && yOfPlace < _gridSizeY - 1)
+		 				else if (y > 0 && y < _gridSizeY - 1)
 		 				{
-		 					yOfNeighbour = (yOfPlace + j + _gridSizeY) % _gridSizeY;
+		 					yOfNeighbour = (y + j + _gridSizeY) % _gridSizeY;
 		 				}
-		 				else if (yOfPlace == _gridSizeY - 1)
+		 				else if (y == _gridSizeY - 1)
 		 				{
-		 					yOfNeighbour = yOfPlace + j;
+		 					yOfNeighbour = y + j;
 		 				}
 		 				
 		 				Vector2 neighbourId = new Vector2(xOfNeighbour, yOfNeighbour);
 		 			
-		 				foreach (GardenPlace neighbour in _allPlaces)
+		 				foreach (GardenLand neighbour in _allLands)
 		 				{
-		 					if (neighbour.PositionId == neighbourId && neighbour.PositionId != place.PositionId)
-		 					{
-		 						neighbours.Add(neighbour);
-		 					}
-		 				}
+		 					if (neighbour.Position == neighbourId)
+		                              {
+			                              if(neighbour.Position != land.Position)
+			                              {
+				                              neighbours.Add(neighbour);
+			                              }
+		                              }
+		                        }
 		 			}
 		 		}
 		 		
-		 		place.Neighbours = neighbours;
+		 		land.Neighbours = neighbours;
 		 	}
 		}
 	}

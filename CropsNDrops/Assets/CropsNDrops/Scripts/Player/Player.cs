@@ -180,8 +180,8 @@ namespace CropsNDrops.Scripts.Player
 
 		private void DropOnPlace(GameObject hitObject)
 		{
-			GardenPlace place = hitObject.GetComponent<GardenPlace>();
-			place.UpdateCondition(_caughtObjectAsItem);
+			GardenLand land = hitObject.GetComponent<GardenLand>();
+			//land.UpdateCondition(_caughtObjectAsItem);
 		}
 		
 		private void DropOnObject(GameObject hitObject)

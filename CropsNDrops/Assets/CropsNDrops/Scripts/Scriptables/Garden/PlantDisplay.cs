@@ -4,7 +4,7 @@ using UnityEngine;
 namespace CropsNDrops.Scripts.Scriptables.Garden
 {
 	[CreateAssetMenu(fileName = "New Plant", menuName = "Plant Object")]
-	public class PlantDisplay : GardenObjectDisplay
+	public class PlantDisplay : ScriptableObject
 	{
 		public PlantType type  = default;
 		public PlantStage stage  = default;

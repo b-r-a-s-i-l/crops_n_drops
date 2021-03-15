@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8477c0393d4e42e38bd02c69441a0864, type: 3}
+  m_Name: SummerFences
+  m_EditorClassIdentifier: 
+  topLeft: {fileID: -7614176681532881009, guid: 036e703c177442f4196b5c072d2b4f0c,
+    type: 3}
+  topMiddle: {fileID: 1159864494577512369, guid: 036e703c177442f4196b5c072d2b4f0c,
+    type: 3}
+  topRight: {fileID: 3953150516908535398, guid: 036e703c177442f4196b5c072d2b4f0c,
+    type: 3}
+  left: {fileID: 4288597548307622778, guid: 036e703c177442f4196b5c072d2b4f0c, type: 3}
+  right: {fileID: -3856745889839956931, guid: 036e703c177442f4196b5c072d2b4f0c, type: 3}
+  bottomLeft: {fileID: -6471740296077092191, guid: 036e703c177442f4196b5c072d2b4f0c,
+    type: 3}
+  bottomMiddle: {fileID: 6587885812606998715, guid: 036e703c177442f4196b5c072d2b4f0c,
+    type: 3}
+  bottomRight: {fileID: 1434306972497490741, guid: 036e703c177442f4196b5c072d2b4f0c,
+    type: 3}

@@ -3,16 +3,23 @@ using UnityEngine;
 
 namespace CropsNDrops.Scripts.Garden
 {
-	public class GardenFence : MonoBehaviour
+	public class GardenFence : GardenStructures
 	{
-		[Header("Definitions")]
-		[SerializeField] private SpriteRenderer _spriteRenderer = default;
-		[SerializeField] private Sprite[] _sprites = default;
-		public void PutMe(Vector2 position, FenceDirection direction)
+		[Header("Fence Specifications")]
+		[SerializeField] private FenceDirection _direction;
+
+		public override void Initialize(int x, int y)
 		{
-			name = $"Fence - x: {position.x} , y: {position.y}";
-			_spriteRenderer.sprite = _sprites[(int) direction];
-			transform.localPosition = position;
+			Type = StrutureType.FENCE;
+			Position = new Vector2(x, y);
+			name = $"Fence - x: {Position.x} , y: {Position.y}";
+			transform.localPosition = Position;
+		}
+
+		public void SetFence(Sprite sprite, FenceDirection direction)
+		{
+			Renderer.sprite = sprite;
+			_direction = direction;
 		}
 	}
 }
