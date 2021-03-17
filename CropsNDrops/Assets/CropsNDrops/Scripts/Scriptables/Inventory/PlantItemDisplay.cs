@@ -1,5 +1,4 @@
-﻿using CropsNDrops.Scripts.Scriptables.Garden;
-using CropsNDrops.Scripts.Scriptables.Inventory.CropsNDrops.Scripts.Scriptables;
+﻿using CropsNDrops.Scripts.Scriptables.Plants;
 using UnityEngine;
 
 namespace CropsNDrops.Scripts.Scriptables.Inventory

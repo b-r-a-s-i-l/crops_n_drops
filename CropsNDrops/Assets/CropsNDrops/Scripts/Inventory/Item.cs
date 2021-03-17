@@ -1,5 +1,5 @@
 ﻿using CropsNDrops.Scripts.Enum;
-using CropsNDrops.Scripts.Scriptables.Inventory.CropsNDrops.Scripts.Scriptables;
+using CropsNDrops.Scripts.Scriptables.Inventory;
 using CropsNDrops.Scripts.Tools;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +11,8 @@ namespace CropsNDrops.Scripts.Inventory
 		[Header("Definitions")]
 		[SerializeField] private GameObject _selector = default;
 		[SerializeField] private Image _image = default;
-
+		[SerializeField] private Animator _animator;
+		
 		[Header("Informations")]
 		[SerializeField] private Transform _parent = default;
 		[SerializeField] private ItemType _type = default;
@@ -26,6 +27,13 @@ namespace CropsNDrops.Scripts.Inventory
 		}
 		
 		public virtual void Initialize(ItemDisplay display) { }
+
+		public void ExecuteAnimationAndDestroy()
+		{
+			_isCaught = true;
+			_animator.SetTrigger("Drop");
+			Destroy(gameObject, .5f);
+		}
 
 		public bool ActiveSelector
 		{

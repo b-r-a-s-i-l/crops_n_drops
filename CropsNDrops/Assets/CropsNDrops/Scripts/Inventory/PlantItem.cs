@@ -1,6 +1,5 @@
-﻿using CropsNDrops.Scripts.Scriptables.Garden;
-using CropsNDrops.Scripts.Scriptables.Inventory;
-using CropsNDrops.Scripts.Scriptables.Inventory.CropsNDrops.Scripts.Scriptables;
+﻿using CropsNDrops.Scripts.Scriptables.Inventory;
+using CropsNDrops.Scripts.Scriptables.Plants;
 using UnityEngine;
 
 namespace CropsNDrops.Scripts.Inventory
@@ -8,20 +7,18 @@ namespace CropsNDrops.Scripts.Inventory
 	public class PlantItem : Item
 	{
 		[SerializeField] private PlantDisplay _plantDisplay = default;
-		
 		public override void Initialize(ItemDisplay display)
 		{
-			if (display)
+			if (display is PlantItemDisplay plantItemDisplay)
 			{
-				PlantItemDisplay tItemDisplay = display as PlantItemDisplay;
+				PlantDisplay = plantItemDisplay.plantDisplay;
 				
 				name = display.name;
-				PlantDisplay = tItemDisplay.plantDisplay;
+				transform.localPosition = Vector3.zero;
 				Parent = transform.parent;
 				Image.sprite = display.sprite;
 				Type = display.Type;
 				IsCaught = false;
-				transform.localPosition = Vector3.zero;
 			}
 			else
 			{

@@ -1,7 +1,7 @@
 ﻿using CropsNDrops.Scripts.Enum;
 using UnityEngine;
 
-namespace CropsNDrops.Scripts.Garden
+namespace CropsNDrops.Scripts.Garden.Structures
 {
 	public class GardenFence : GardenStructures
 	{

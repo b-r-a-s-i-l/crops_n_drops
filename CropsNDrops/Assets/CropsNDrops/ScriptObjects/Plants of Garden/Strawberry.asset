@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16f60fe4eeb456fbc4d237c84abe539, type: 3}
+  m_Name: Strawberry
+  m_EditorClassIdentifier: 
+  startLevel: 0
+  cropLevelSettings:
+  - sprite: {fileID: 2267324014195092112, guid: 1ffe0b8f75649d24ea8310705fab7a7f,
+      type: 3}
+    stage: 0
+    nextStageRequeriment: 0
+  - sprite: {fileID: 1209668309000574655, guid: 1ffe0b8f75649d24ea8310705fab7a7f,
+      type: 3}
+    stage: 3
+    nextStageRequeriment: 1
+  - sprite: {fileID: 3584806856492504465, guid: 1ffe0b8f75649d24ea8310705fab7a7f,
+      type: 3}
+    stage: 5
+    nextStageRequeriment: 0

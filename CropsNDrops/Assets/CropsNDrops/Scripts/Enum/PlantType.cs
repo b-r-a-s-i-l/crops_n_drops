@@ -2,7 +2,7 @@
 {
 	public enum PlantType
 	{
-		STRAWBERRY,
+		CROPPLANT,
 		WEEDPLANT
 	}
 }

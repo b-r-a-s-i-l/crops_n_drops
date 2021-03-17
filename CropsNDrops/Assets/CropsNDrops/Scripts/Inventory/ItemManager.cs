@@ -1,6 +1,5 @@
 ﻿using CropsNDrops.Scripts.Enum;
 using CropsNDrops.Scripts.Scriptables.Inventory;
-using CropsNDrops.Scripts.Scriptables.Inventory.CropsNDrops.Scripts.Scriptables;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -13,7 +12,7 @@ namespace CropsNDrops.Scripts.Inventory
 	    [SerializeField] private Text _blockCount = default;
 	    [SerializeField] private Slot[] _slots = default;
 	    [SerializeField] private Item[] _itemPrefabs = default; 
-	    [SerializeField] private ItemDisplay[] _displays = default;
+	    [SerializeField] private ItemDisplay[] _itemDisplays = default;
 	   
 	    [Header("Informations")]
 	    [SerializeField] private int _numberOfBlocks = default;
@@ -31,20 +30,20 @@ namespace CropsNDrops.Scripts.Inventory
 	    private void GerateItemInSlot(Slot slot)
 	    {
 		    UpdateNumberOfBlock();
-		    ItemDisplay display = RandomizeItem();
+		    ItemDisplay itemDisplay = RandomizeItem();
 
-		    switch (display)
+		    switch (itemDisplay)
 		    {
 			    case PlantItemDisplay _:
 			    {
-				    display.Type = ItemType.PLANT;
+				    itemDisplay.Type = ItemType.PLANT;
 				    
-				    foreach (Item t in _itemPrefabs)
+				    foreach (Item itemPrefab in _itemPrefabs)
 				    {
-					    if (t is PlantItem)
+					    if (itemPrefab is PlantItem)
 					    {
-						    Item item = Instantiate(t, slot.transform);
-						    item.Initialize(display);
+						    Item item = Instantiate(itemPrefab, slot.transform);
+						    item.Initialize(itemDisplay);
 						    slot.Item = item;
 					    }
 				    }
@@ -53,14 +52,14 @@ namespace CropsNDrops.Scripts.Inventory
 			    }
 			    case ElementalItemDisplay _:
 			    {
-				    display.Type = ItemType.ELEMENTAL;
+				    itemDisplay.Type = ItemType.ELEMENTAL;
 				    
-				    foreach (Item t in _itemPrefabs)
+				    foreach (Item itemPrefab in _itemPrefabs)
 				    {
-					    if (t is ElementItem)
+					    if (itemPrefab is ElementItem)
 					    {
-						    Item item = Instantiate(t, slot.transform);
-						    item.Initialize(display);
+						    Item item = Instantiate(itemPrefab, slot.transform);
+						    item.Initialize(itemDisplay);
 						    slot.Item = item;
 					    }
 				    }
@@ -84,9 +83,9 @@ namespace CropsNDrops.Scripts.Inventory
 	    {
 		    //Melhorar mais tarde
 		    
-		    int i = Random.Range(0, _displays.Length);
+		    int i = Random.Range(0, _itemDisplays.Length);
 		    
-		    return _displays[i];
+		    return _itemDisplays[i];
 	    }
 
 	    public int NumberOfBlocks

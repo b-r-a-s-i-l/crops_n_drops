@@ -1,10 +1,6 @@
-﻿using System;
-using CropsNDrops.Scripts.Enum;
-using CropsNDrops.Scripts.Garden;
+﻿using CropsNDrops.Scripts.Garden.Structures;
 using CropsNDrops.Scripts.Input;
 using CropsNDrops.Scripts.Inventory;
-using CropsNDrops.Scripts.Scriptables.Inventory;
-using CropsNDrops.Scripts.Scriptables.Inventory.CropsNDrops.Scripts.Scriptables;
 using CropsNDrops.Scripts.Tools;
 using UnityEngine;
 
@@ -34,11 +30,11 @@ namespace CropsNDrops.Scripts.Player
 
 		private void Catch(Vector2 eventPosition)
 		{
-			GameObject hit = Utils.GetRaycastHitObject(eventData: eventPosition, true);
+			GameObject hit = Utils.GetRaycastHitObject(eventPosition, true);
 
 			if (!hit)
 			{
-				hit = Utils.GetRaycastHitObject(eventData: eventPosition);
+				hit = Utils.GetRaycastHitObject(eventPosition);
 			}
 			
 			if (!hit)
@@ -113,15 +109,15 @@ namespace CropsNDrops.Scripts.Player
 
 		private void SetAsGardenObject()
 		{
-			GardenPlant gardenPlant = _caughtObject.GetComponent<GardenPlant>();
-			gardenPlant.TakeTheBasket();
+			//GardenPlant gardenPlant = _caughtObject.GetComponent<GardenPlant>();
+			//gardenPlant.TakeTheBasket();
 		}
 
 		private void DragItem(Vector2 eventPosition)
 		{
 			_caughtObject.transform.position = eventPosition;
 			
-			GameObject hitObject = Utils.GetRaycastHitObject(_caughtObject.transform.position, false, true);
+			GameObject hitObject = Utils.GetRaycastHitObject(_caughtObject.transform.position);
 
 			if (!hitObject)
 			{
@@ -167,24 +163,33 @@ namespace CropsNDrops.Scripts.Player
 			{
 				case 9: //Garden Place
 				{
-					DropOnPlace(hitObject);
+					DropOnLand(hitObject);
 					return;
 				}
 				case 10: //Garden Object
 				{
-					DropOnObject(hitObject);
+					DropOnPlant(hitObject);
 					return;
 				}
 			}
 		}
 
-		private void DropOnPlace(GameObject hitObject)
+		private void DropOnLand(GameObject hitObject)
 		{
 			GardenLand land = hitObject.GetComponent<GardenLand>();
-			//land.UpdateCondition(_caughtObjectAsItem);
+
+			if (_caughtObjectAsItem is PlantItem plant)
+			{
+				land.PlantOnMe(plant);
+			}
+			if (_caughtObjectAsItem is ElementItem element)
+			{
+				land.ChangeLandCondition(element);
+			}
+			
 		}
 		
-		private void DropOnObject(GameObject hitObject)
+		private void DropOnPlant(GameObject hitObject)
 		{
 			//GardenPlant gardenPlant = hitObject.GetComponent<GardenPlant>();
 			//gardenPlant.UpdateCondition(_caughtObjectAsItem);

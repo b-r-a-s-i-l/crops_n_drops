@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using CropsNDrops.Scripts.Enum;
+using CropsNDrops.Scripts.Garden.Structures;
 using CropsNDrops.Scripts.Scriptables.Garden;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CropsNDrops.Scripts.Garden
 {
@@ -19,7 +18,7 @@ namespace CropsNDrops.Scripts.Garden
 		[SerializeField] private int _gridSizeY = default;
 		[SerializeField] private float _xOffset = default;
 		[SerializeField] private float _yOffset = default;
-		[FormerlySerializedAs("_allPlaces"),SerializeField] private List<GardenLand> _allLands = new List<GardenLand>();
+		[SerializeField] private List<GardenLand> _allLands = new List<GardenLand>();
 		
 		public void Initialize(int width, int height)
 		{

@@ -2552,10 +2552,8 @@ MonoBehaviour:
   _itemPrefabs:
   - {fileID: -3298019835599433403, guid: 0f4c0b832789d4f468d88077b1e2f01e, type: 3}
   - {fileID: -4988113912662679687, guid: b33bf97f7aa375444a86c04f5ebb97d7, type: 3}
-  _displays:
+  _itemDisplays:
   - {fileID: 11400000, guid: 2cfbdf27f83fbaa40aa6ed451f709204, type: 2}
-  - {fileID: 11400000, guid: 143227a6b3a189c4593a8a4b36bd69ae, type: 2}
-  - {fileID: 11400000, guid: 0e1eb8e97f63e7048b486f449150a2b0, type: 2}
   _numberOfBlocks: 18
 --- !u!1 &1636018088
 GameObject:
@@ -2668,7 +2666,7 @@ MonoBehaviour:
   _gridSizeY: 0
   _xOffset: -1.5
   _yOffset: -0.5
-  _allPlaces: []
+  _allLands: []
 --- !u!4 &1683132171
 Transform:
   m_ObjectHideFlags: 0

@@ -1,25 +1,36 @@
-﻿using CropsNDrops.Scripts.Scriptables.Inventory.CropsNDrops.Scripts.Scriptables;
+﻿using CropsNDrops.Scripts.Enum;
+using CropsNDrops.Scripts.Scriptables.Inventory;
 using UnityEngine;
 
 namespace CropsNDrops.Scripts.Inventory
 {
 	public class ElementItem : Item
 	{
+		[SerializeField] private ElementType elementType = default;
+		
 		public override void Initialize(ItemDisplay display)
 		{
-			if (display)
+			if (display is ElementalItemDisplay elementalItemDisplay)
 			{
+				ElementType = elementalItemDisplay.element;
+				
 				name = display.name;
+				transform.localPosition = Vector3.zero;
 				Parent = transform.parent;
 				Image.sprite = display.sprite;
 				Type = display.Type;
 				IsCaught = false;
-				transform.localPosition = Vector3.zero;
 			}
 			else
 			{
 				Destroy(gameObject);
 			}
+		}
+		
+		public ElementType ElementType
+		{
+			get { return elementType; }
+			set { elementType = value; }
 		}
 	}
 }

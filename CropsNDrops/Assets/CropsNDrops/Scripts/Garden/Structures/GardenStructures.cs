@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using CropsNDrops.Scripts.Enum;
+﻿using CropsNDrops.Scripts.Enum;
 using UnityEngine;
 
-namespace CropsNDrops.Scripts.Garden
+namespace CropsNDrops.Scripts.Garden.Structures
 {
 	public class GardenStructures : MonoBehaviour
 	{

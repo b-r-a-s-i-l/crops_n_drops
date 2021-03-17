@@ -4,7 +4,5 @@
 	{
 		PLANT,
 		ELEMENTAL
-		//WATER,
-		//SUNSHINE
 	}
 }

@@ -1,5 +1,4 @@
 // GENERATED AUTOMATICALLY FROM 'Assets/CropsNDrops/Scripts/Input/TouchControls.inputactions'
-
 using System;
 using System.Collections;
 using System.Collections.Generic;

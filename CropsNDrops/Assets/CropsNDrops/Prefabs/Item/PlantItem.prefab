@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 2875940826826662757}
   - component: {fileID: 2875940826826662756}
   - component: {fileID: 2875940826826662758}
-  - component: {fileID: -4988113912662679687}
+  - component: {fileID: 1691281560757031035}
+  - component: {fileID: -3298019835599433403}
   m_Layer: 8
-  m_Name: ElementItem
+  m_Name: PlantItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,7 +39,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 48, y: 48}
+  m_SizeDelta: {x: 32, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2875940826826662757
 CanvasRenderer:
@@ -67,7 +68,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 3987354592254640489, guid: 1ffe0b8f75649d24ea8310705fab7a7f,
+  m_Sprite: {fileID: -7067618530285761763, guid: 1ffe0b8f75649d24ea8310705fab7a7f,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -91,7 +92,26 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 48, y: 48, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-4988113912662679687
+--- !u!95 &1691281560757031035
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2875940826826662681}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5af2c6bb6c0fa3447b163b4be4a2292a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-3298019835599433403
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,14 +120,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2875940826826662681}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f59c4dd72600450583ae79ef5d6a4112, type: 3}
+  m_Script: {fileID: 11500000, guid: 64ecc26b84374e24befbe954359782b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _selector: {fileID: 8943837547924201805}
   _image: {fileID: 2875940826826662756}
+  _animator: {fileID: 1691281560757031035}
   _parent: {fileID: 0}
-  _type: 1
+  _type: 0
   _isCaught: 0
+  _plantDisplay: {fileID: 0}
 --- !u!1 &8943837547924201805
 GameObject:
   m_ObjectHideFlags: 0

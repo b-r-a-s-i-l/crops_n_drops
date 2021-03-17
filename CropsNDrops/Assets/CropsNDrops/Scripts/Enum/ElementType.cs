@@ -1,6 +1,6 @@
 ﻿namespace CropsNDrops.Scripts.Enum
 {
-	public enum ElementalType
+	public enum ElementType
 	{
 		WATER,
 		SUNSHINE
