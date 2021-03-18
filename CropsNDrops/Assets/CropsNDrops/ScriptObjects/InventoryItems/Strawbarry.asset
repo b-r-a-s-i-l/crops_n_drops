@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Strawbarry
   m_EditorClassIdentifier: 
   sprite: {fileID: -7067618530285761763, guid: 1ffe0b8f75649d24ea8310705fab7a7f, type: 3}
-  plantDisplay: {fileID: 11400000, guid: 3b5e7dff40590e847b2f17926c1d5dfe, type: 2}
+  plantDisplay: {fileID: 11400000, guid: 45bb62d5e1ceef2428df973e30334016, type: 2}

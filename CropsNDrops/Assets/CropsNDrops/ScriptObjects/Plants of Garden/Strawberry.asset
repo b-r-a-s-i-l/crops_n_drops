@@ -18,11 +18,22 @@ MonoBehaviour:
       type: 3}
     stage: 0
     nextStageRequeriment: 0
+  - sprite: {fileID: 592539525164769842, guid: 1ffe0b8f75649d24ea8310705fab7a7f, type: 3}
+    stage: 1
+    nextStageRequeriment: 0
+  - sprite: {fileID: -3316588417601861096, guid: 1ffe0b8f75649d24ea8310705fab7a7f,
+      type: 3}
+    stage: 2
+    nextStageRequeriment: 0
   - sprite: {fileID: 1209668309000574655, guid: 1ffe0b8f75649d24ea8310705fab7a7f,
       type: 3}
     stage: 3
     nextStageRequeriment: 1
+  - sprite: {fileID: -7835018881811605997, guid: 1ffe0b8f75649d24ea8310705fab7a7f,
+      type: 3}
+    stage: 4
+    nextStageRequeriment: 1
   - sprite: {fileID: 3584806856492504465, guid: 1ffe0b8f75649d24ea8310705fab7a7f,
       type: 3}
     stage: 5
-    nextStageRequeriment: 0
+    nextStageRequeriment: 1

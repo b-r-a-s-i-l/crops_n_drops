@@ -1,4 +1,5 @@
-﻿using CropsNDrops.Scripts.Garden.Structures;
+﻿using CropsNDrops.Scripts.Garden.Plants;
+using CropsNDrops.Scripts.Garden.Structures;
 using CropsNDrops.Scripts.Input;
 using CropsNDrops.Scripts.Inventory;
 using CropsNDrops.Scripts.Tools;
@@ -178,21 +179,29 @@ namespace CropsNDrops.Scripts.Player
 		{
 			GardenLand land = hitObject.GetComponent<GardenLand>();
 
-			if (_caughtObjectAsItem is PlantItem plant)
+			if (_caughtObjectAsItem is PlantItem plantItem)
 			{
-				land.PlantOnMe(plant);
+				land.PlantOnMe(plantItem);
 			}
-			if (_caughtObjectAsItem is ElementItem element)
+			if (_caughtObjectAsItem is ElementItem elementItem)
 			{
-				land.ChangeLandCondition(element);
+				land.ChangeLandCondition(elementItem);
 			}
 			
 		}
 		
 		private void DropOnPlant(GameObject hitObject)
 		{
-			//GardenPlant gardenPlant = hitObject.GetComponent<GardenPlant>();
-			//gardenPlant.UpdateCondition(_caughtObjectAsItem);
+			GardenPlant plant = hitObject.GetComponent<GardenPlant>();
+
+			if (_caughtObjectAsItem is PlantItem plantItem)
+			{
+				//destruir a planta plantada
+			}
+			if (_caughtObjectAsItem is ElementItem elementItem)
+			{
+				plant.DropOnMe(elementItem);
+			}
 		}
 
 	}

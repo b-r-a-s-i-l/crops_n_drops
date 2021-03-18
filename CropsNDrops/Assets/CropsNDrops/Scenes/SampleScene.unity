@@ -2554,6 +2554,8 @@ MonoBehaviour:
   - {fileID: -4988113912662679687, guid: b33bf97f7aa375444a86c04f5ebb97d7, type: 3}
   _itemDisplays:
   - {fileID: 11400000, guid: 2cfbdf27f83fbaa40aa6ed451f709204, type: 2}
+  - {fileID: 11400000, guid: 143227a6b3a189c4593a8a4b36bd69ae, type: 2}
+  - {fileID: 11400000, guid: 0e1eb8e97f63e7048b486f449150a2b0, type: 2}
   _numberOfBlocks: 18
 --- !u!1 &1636018088
 GameObject:

@@ -31,8 +31,10 @@ namespace CropsNDrops.Scripts.Inventory
 		public void ExecuteAnimationAndDestroy()
 		{
 			_isCaught = true;
-			_animator.SetTrigger("Drop");
-			Destroy(gameObject, .5f);
+			//_animator.enabled = true;
+			//_animator.SetBool("Drop", true);
+			_parent.GetComponent<Slot>().Item = null;
+			Destroy(gameObject, .1f);
 		}
 
 		public bool ActiveSelector
@@ -44,6 +46,12 @@ namespace CropsNDrops.Scripts.Inventory
 		{
 			get { return _image; }
 			set { _image = value; }
+		}
+
+		public Animator Animator
+		{
+			get { return _animator; }
+			set { _animator = value; }
 		}
 
 		public Transform Parent

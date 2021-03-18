@@ -1,4 +1,6 @@
-﻿using CropsNDrops.Scripts.Scriptables.Plants;
+﻿using CropsNDrops.Scripts.Enum;
+using CropsNDrops.Scripts.Inventory;
+using CropsNDrops.Scripts.Scriptables.Plants;
 using UnityEngine;
 
 namespace CropsNDrops.Scripts.Garden.Plants
@@ -13,6 +15,9 @@ namespace CropsNDrops.Scripts.Garden.Plants
 		[SerializeField] private PlantDisplay _display = default;
 
 		public virtual void Initialize(PlantDisplay display)
+		{ }
+		
+		public virtual void DropOnMe(ElementItem elementItem)
 		{ }
 
 		public SpriteRenderer Renderer

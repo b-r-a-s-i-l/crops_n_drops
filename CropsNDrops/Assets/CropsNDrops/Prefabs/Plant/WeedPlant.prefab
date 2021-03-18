@@ -174,7 +174,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 2267324014195092112, guid: 1ffe0b8f75649d24ea8310705fab7a7f,
+  m_Sprite: {fileID: 3987354592254640489, guid: 1ffe0b8f75649d24ea8310705fab7a7f,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -213,4 +213,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _renderer: {fileID: 3093299082903165240}
   _animator: {fileID: 498252946142256646}
-  _display: {fileID: 0}
+  _display: {fileID: 11400000, guid: f45965c5f6e622648bbc7dde9ed0780f, type: 2}

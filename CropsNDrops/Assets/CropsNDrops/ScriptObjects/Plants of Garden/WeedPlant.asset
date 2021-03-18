@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 017d4fbb7e674c8cbff7c46b1c871583, type: 3}
   m_Name: WeedPlant
   m_EditorClassIdentifier: 
-  sprite: {fileID: 3930821917377472818, guid: ddf030868e9a5a84e96d2a2ee002d229, type: 3}
+  sprite: {fileID: 3987354592254640489, guid: 1ffe0b8f75649d24ea8310705fab7a7f, type: 3}

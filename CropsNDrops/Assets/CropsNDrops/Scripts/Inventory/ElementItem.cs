@@ -16,6 +16,7 @@ namespace CropsNDrops.Scripts.Inventory
 				
 				name = display.name;
 				transform.localPosition = Vector3.zero;
+				Animator.enabled = false;
 				Parent = transform.parent;
 				Image.sprite = display.sprite;
 				Type = display.Type;
