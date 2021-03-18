@@ -1,4 +1,6 @@
-﻿using CropsNDrops.Scripts.Garden.Plants;
+﻿using System;
+using CropsNDrops.Scripts.Enum;
+using CropsNDrops.Scripts.Garden.Plants;
 using CropsNDrops.Scripts.Garden.Structures;
 using CropsNDrops.Scripts.Input;
 using CropsNDrops.Scripts.Inventory;
@@ -14,7 +16,7 @@ namespace CropsNDrops.Scripts.Player
 		
 		[Header("Informations")]
 		[SerializeField] private GameObject _caughtObject = default;
-		[SerializeField] private Item _caughtObjectAsItem = default;
+		[SerializeField] private Item _caughtItem = default;
 		private void Awake()
 		{
 			_input.OnStartTouch += Catch;
@@ -51,15 +53,26 @@ namespace CropsNDrops.Scripts.Player
 			{
 				case 8: //Item
 				{
-					SetAsItem();
+					CatchAsItem();
 					return;
 				}
 				case 10: //GardenObject
 				{
-					SetAsGardenObject();
+					CatchAsPlant();
 					return;
 				}
 			}
+		}
+
+		private void CatchAsItem()
+		{
+			_caughtItem = _caughtObject.GetComponent<Item>();
+			_caughtItem.IsCaught = true;
+		}
+
+		private void CatchAsPlant()
+		{
+			//
 		}
 
 		private void Drag(Vector2 eventPosition)
@@ -81,6 +94,75 @@ namespace CropsNDrops.Scripts.Player
 			}
 		}
 
+		private void DragItem(Vector2 eventPosition)
+		{
+			_caughtItem.transform.position = eventPosition;
+			
+			GameObject hitObject = Utils.GetRaycastHitObject(_caughtItem.transform.position);
+
+			if (!hitObject)
+			{
+				if (_caughtItem)
+				{ 
+					_caughtItem.ActiveSelector = false;
+				}
+				
+				return;
+			}
+			
+			LayerMask layer = hitObject.layer;
+				
+			switch (layer)
+			{
+				case 9: //Land
+				{
+					DragItemOnLand(hitObject);
+					return;
+				}
+				case 10: //Plant
+				{
+					DragItemOnPlant(hitObject);
+					return;
+				}
+			}
+		}
+
+		private void DragItemOnLand(GameObject hitObject)
+		{
+			GardenLand land = hitObject.GetComponent<GardenLand>();
+
+			switch (_caughtItem)
+			{
+				case PlantItem _:
+				{
+					if (land.Condition == PlaceCondition.NORMAL)
+					{
+						_caughtItem.ActiveSelector = true;
+					}
+					return;
+				}
+				case ElementItem _:
+				{
+					_caughtItem.ActiveSelector = true;
+					return;
+				}
+			}
+		}
+
+		private void DragItemOnPlant(GameObject hitObject)
+		{
+			GardenPlant plant = hitObject.GetComponent<GardenPlant>();
+
+			switch (plant)
+			{
+				case CropPlant _:
+				{
+					_caughtItem.ActiveSelector = true;
+					return;
+				}
+			}
+		}
+		
 		private void Drop(Vector2 eventPosition)
 		{
 			if (!_caughtObject)
@@ -96,52 +178,7 @@ namespace CropsNDrops.Scripts.Player
 				{
 					DropItem();
 					_caughtObject = null;
-					_caughtObjectAsItem = null;
-					return;
-				}
-			}
-		}
-
-		private void SetAsItem()
-		{
-			_caughtObjectAsItem = _caughtObject.GetComponent<Item>();
-			_caughtObjectAsItem.IsCaught = true;
-		}
-
-		private void SetAsGardenObject()
-		{
-			//GardenPlant gardenPlant = _caughtObject.GetComponent<GardenPlant>();
-			//gardenPlant.TakeTheBasket();
-		}
-
-		private void DragItem(Vector2 eventPosition)
-		{
-			_caughtObject.transform.position = eventPosition;
-			
-			GameObject hitObject = Utils.GetRaycastHitObject(_caughtObject.transform.position);
-
-			if (!hitObject)
-			{
-				if (_caughtObjectAsItem)
-				{ 
-					_caughtObjectAsItem.ActiveSelector = false;
-				}
-				
-				return;
-			}
-			
-			LayerMask layer = hitObject.layer;
-				
-			switch (layer)
-			{
-				case 9: //Garden Place
-				{
-					_caughtObjectAsItem.ActiveSelector = true;
-					return;
-				}
-				case 10: //Garden Object
-				{
-					_caughtObjectAsItem.ActiveSelector = true;
+					_caughtItem = null;
 					return;
 				}
 			}
@@ -149,9 +186,9 @@ namespace CropsNDrops.Scripts.Player
 
 		private void DropItem()
 		{
-			_caughtObjectAsItem.IsCaught = false;
+			_caughtItem.IsCaught = false;
 			
-			GameObject hitObject = Utils.GetRaycastHitObject(_caughtObject.transform.position);
+			GameObject hitObject = Utils.GetRaycastHitObject(_caughtItem.transform.position);
 
 			if (!hitObject)
 			{
@@ -162,15 +199,15 @@ namespace CropsNDrops.Scripts.Player
 				
 			switch (layer)
 			{
-				case 9: //Garden Place
+				case 9: //Land
 				{
 					DropOnLand(hitObject);
-					return;
+					break;
 				}
-				case 10: //Garden Object
+				case 10: //Plant
 				{
 					DropOnPlant(hitObject);
-					return;
+					break;
 				}
 			}
 		}
@@ -179,30 +216,36 @@ namespace CropsNDrops.Scripts.Player
 		{
 			GardenLand land = hitObject.GetComponent<GardenLand>();
 
-			if (_caughtObjectAsItem is PlantItem plantItem)
+			switch (_caughtItem)
 			{
-				land.PlantOnMe(plantItem);
+				case PlantItem plantItem:
+				{
+					if (land.Condition == PlaceCondition.NORMAL)
+					{
+						land.PlantOnMe(plantItem);
+					}
+					return;
+				}
+				case ElementItem elementItem:
+				{
+					land.ChangeLandCondition(elementItem);
+					return;
+				}
 			}
-			if (_caughtObjectAsItem is ElementItem elementItem)
-			{
-				land.ChangeLandCondition(elementItem);
-			}
-			
 		}
 		
 		private void DropOnPlant(GameObject hitObject)
 		{
 			GardenPlant plant = hitObject.GetComponent<GardenPlant>();
-
-			if (_caughtObjectAsItem is PlantItem plantItem)
+			
+			switch (plant)
 			{
-				//destruir a planta plantada
-			}
-			if (_caughtObjectAsItem is ElementItem elementItem)
-			{
-				plant.DropOnMe(elementItem);
+				case CropPlant _:
+				{
+					plant.DropOnMe(_caughtItem);
+					return;
+				}
 			}
 		}
-
 	}
 }

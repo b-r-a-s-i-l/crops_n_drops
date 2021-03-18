@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CropsNDrops.Scripts.Enum;
 using CropsNDrops.Scripts.Garden.Plants;
 using CropsNDrops.Scripts.Inventory;
@@ -12,12 +13,19 @@ namespace CropsNDrops.Scripts.Garden.Structures
 		[Header("Land Specifications")]
 		[SerializeField] private LandDisplay _landDisplay = default;
 		[SerializeField] private PlaceCondition _condition = default;
+		[SerializeField] private BoxCollider _boxCollider = default;
 		[SerializeField] private Animator _animator = default;
 		[SerializeField] private GardenPlant[] plantPrefab = default;
 		[SerializeField] private List<GardenLand> _neighbours = new List<GardenLand>();
 		
 		[Header("Plant")]
 		[SerializeField] private GardenPlant _planted = default;
+
+		private void Update()
+		{
+			_boxCollider.enabled = !_planted;
+		}
+
 		public override void Initialize(int x, int y)
 		{
 			Type = StrutureType.LAND;
@@ -161,6 +169,12 @@ namespace CropsNDrops.Scripts.Garden.Structures
 			}
 
 			return null;
+		}
+
+		public PlaceCondition Condition
+		{
+			get { return _condition; }
+			set { _condition = value; }
 		}
 		
 		public List<GardenLand> Neighbours

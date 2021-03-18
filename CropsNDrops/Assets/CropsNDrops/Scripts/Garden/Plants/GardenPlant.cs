@@ -17,7 +17,7 @@ namespace CropsNDrops.Scripts.Garden.Plants
 		public virtual void Initialize(PlantDisplay display)
 		{ }
 		
-		public virtual void DropOnMe(ElementItem elementItem)
+		public virtual void DropOnMe(Item item)
 		{ }
 
 		public SpriteRenderer Renderer

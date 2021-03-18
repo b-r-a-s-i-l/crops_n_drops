@@ -1,4 +1,5 @@
-﻿using CropsNDrops.Scripts.Enum;
+﻿using System;
+using CropsNDrops.Scripts.Enum;
 using CropsNDrops.Scripts.Inventory;
 using CropsNDrops.Scripts.Scriptables.Plants;
 using UnityEngine;
@@ -27,11 +28,25 @@ namespace CropsNDrops.Scripts.Garden.Plants
 			}
 		}
 
-		public override void DropOnMe(ElementItem elementItem)
+		public override void DropOnMe(Item item)
 		{
-			ElementType elementType = elementItem.ElementType;
-			ApllyItemToGrow(elementType);
-			elementItem.ExecuteAnimationAndDestroy();
+			switch (item)
+			{
+				case ElementItem elementItem:
+				{
+					ElementType elementType = elementItem.ElementType;
+					ApllyItemToGrow(elementType);
+					elementItem.ExecuteAnimationAndDestroy();
+					return;
+				}
+				case PlantItem plantItem:
+				{
+					Destroy(gameObject, .1f);
+					plantItem.ExecuteAnimationAndDestroy();
+					return;
+				}
+			}
+			
 		}
 
 		private void SetLevel(PlantStage stage)
@@ -53,16 +68,21 @@ namespace CropsNDrops.Scripts.Garden.Plants
 			{
 				if (_actualsStage == levelSetting.stage)
 				{
-					if (elementTypeOfItem == _nextStageRequeriment)
+					if (elementTypeOfItem != _nextStageRequeriment)
 					{
-						SetLevel(_actualsStage + 1);
+						Destroy(gameObject, .1f);
+						return;
 					}
+					
+					SetLevel(_actualsStage + 1);
+					return;
 				}
 			}
 		}
 
 		public void TakeTheBasket()
 		{
+			//metodo para pontuar
 			Destroy(gameObject);
 		}
 	}
