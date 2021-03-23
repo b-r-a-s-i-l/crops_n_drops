@@ -5,33 +5,38 @@ namespace CropsNDrops.Scripts.Inventory
 	public class Slot : MonoBehaviour
 	{
 		[Header("Definitions")]
-		[SerializeField] private Item _item = default;
+		[SerializeField] private ItemBox itemBox = default;
 		
 		public delegate void SlotEvent(Slot slot);
-		public event SlotEvent PutItem;
+		public event SlotEvent OnPutItem;
 
 		private void Update()
 		{
 			if (DontHaveItem)
 			{
-				OnPutItem();
+				PutItem();
 			}
 		}
 
-		public Item Item
+		public ItemBox ItemBox
 		{
-			get { return _item; }
-			set { _item = value; }
+			set
+			{
+				itemBox = value;
+			}
 		}
 
-		private bool DontHaveItem
+		public bool DontHaveItem
 		{
-			get { return _item is null; }
+			get
+			{
+				return itemBox is null;
+			}
 		}
 
-		protected virtual void OnPutItem()
+		protected virtual void PutItem()
 		{
-			PutItem?.Invoke(this);
+			OnPutItem?.Invoke(this);
 		}
 	}
 }

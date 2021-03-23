@@ -1,6 +1,5 @@
 ﻿using CropsNDrops.Scripts.Enum;
 using CropsNDrops.Scripts.Scriptables.Inventory;
-using CropsNDrops.Scripts.Tools;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,61 +13,40 @@ namespace CropsNDrops.Scripts.Inventory
 		[SerializeField] private Animator _animator;
 		
 		[Header("Informations")]
-		[SerializeField] private Transform _parent = default;
-		[SerializeField] private ItemType _type = default;
-		[SerializeField] private bool _isCaught = default;
-
-		private void Update()
-		{
-			if (!_isCaught)
-			{
-				transform.position = Utils.Centralize(_parent.position, transform.position);
-			}
-		}
-		
-		public virtual void Initialize(ItemDisplay display) { }
+		[SerializeField] private ItemType _itemType = default;
+		[SerializeField] private bool _canDrop = default;
+		public virtual void Initialize(ItemSettings settings) { }
 
 		public void ExecuteAnimationAndDestroy()
 		{
-			_isCaught = true;
 			//_animator.enabled = true;
 			//_animator.SetBool("Drop", true);
-			_parent.GetComponent<Slot>().Item = null;
 			Destroy(gameObject, .1f);
 		}
 
 		public bool ActiveSelector
 		{
-			set { _selector.SetActive((value)); }
+			get { return _canDrop; }
+			set
+			{
+				_canDrop = value;
+				_selector.SetActive(_canDrop);
+			}
 		}
-		
-		public Image Image
+
+		protected Image Image
 		{
 			get { return _image; }
-			set { _image = value; }
 		}
 
-		public Animator Animator
+		protected Animator Animator
 		{
 			get { return _animator; }
-			set { _animator = value; }
 		}
 
-		public Transform Parent
+		protected ItemType ItemType
 		{
-			get { return _parent; }
-			set { _parent = value; }
-		}
-		
-		public ItemType Type
-		{
-			get { return _type; }
-			set { _type = value; }
-		}
-
-		public bool IsCaught
-		{
-			set { _isCaught = value; }
+			set { _itemType = value; }
 		}
 	}
 }

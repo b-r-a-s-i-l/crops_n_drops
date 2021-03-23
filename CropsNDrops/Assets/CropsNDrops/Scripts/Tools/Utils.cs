@@ -11,7 +11,7 @@ namespace CropsNDrops.Scripts.Tools
 				eventData = WorldToScreenPoint(eventData);
 			}
 			
-			Ray ray = GameManager.Instance.Camera.ScreenPointToRay(eventData);
+			Ray ray = GameManager.Instance.MainCamera.ScreenPointToRay(eventData);
 
 			if (debugRay)
 			{
@@ -39,7 +39,7 @@ namespace CropsNDrops.Scripts.Tools
 
 		public static Vector3 ScreenToWorldPoint(Vector2 screenPosition, bool is2D = true)
 		{
-			Camera cam = GameManager.Instance.Camera;
+			Camera cam = GameManager.Instance.MainCamera;
 			Vector3 screenCoordinates = new Vector3(screenPosition.x, screenPosition.y, cam.nearClipPlane);
 			Vector3 wordlCoordinates = cam.ScreenToWorldPoint(screenCoordinates);
 			
@@ -50,10 +50,10 @@ namespace CropsNDrops.Scripts.Tools
 
 			return wordlCoordinates;
 		}
-		
-		public static Vector3 WorldToScreenPoint(Vector3 worldPosition)
+
+		private static Vector3 WorldToScreenPoint(Vector3 worldPosition)
 		{
-			Camera cam = GameManager.Instance.Camera;
+			Camera cam = GameManager.Instance.MainCamera;
 			Vector3 screenCoordinates = cam.WorldToScreenPoint(worldPosition);
 			
 			return screenCoordinates;

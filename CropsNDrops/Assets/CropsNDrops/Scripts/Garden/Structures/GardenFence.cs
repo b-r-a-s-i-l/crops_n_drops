@@ -10,7 +10,7 @@ namespace CropsNDrops.Scripts.Garden.Structures
 
 		public override void Initialize(int x, int y)
 		{
-			Type = StrutureType.FENCE;
+			StrutureType = StrutureType.FENCE;
 			Position = new Vector2(x, y);
 			name = $"Fence - x: {Position.x} , y: {Position.y}";
 			transform.localPosition = Position;

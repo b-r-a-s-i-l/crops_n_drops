@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CropsNDrops.Scripts.Enum;
 using CropsNDrops.Scripts.Garden.Plants;
 using CropsNDrops.Scripts.Inventory;
+using CropsNDrops.Scripts.Inventory.ItemDerivations;
 using CropsNDrops.Scripts.Scriptables.Garden;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ namespace CropsNDrops.Scripts.Garden.Structures
 		[SerializeField] private PlaceCondition _condition = default;
 		[SerializeField] private BoxCollider _boxCollider = default;
 		[SerializeField] private Animator _animator = default;
-		[SerializeField] private GardenPlant[] plantPrefab = default;
+		[SerializeField] private GardenPlant[] _plantPrefab = default;
 		[SerializeField] private List<GardenLand> _neighbours = new List<GardenLand>();
 		
 		[Header("Plant")]
@@ -28,7 +29,7 @@ namespace CropsNDrops.Scripts.Garden.Structures
 
 		public override void Initialize(int x, int y)
 		{
-			Type = StrutureType.LAND;
+			StrutureType = StrutureType.LAND;
 			Position = new Vector2(x, y);
 			name = $"Place - x: {Position.x} , y: {Position.y}";
 			transform.localPosition = Position;
@@ -37,14 +38,14 @@ namespace CropsNDrops.Scripts.Garden.Structures
 		
 		public void PlantOnMe(PlantItem plant)
 		{
-			PlantType plantType = plant.PlantDisplay.PlantType;
+			PlantType plantType = plant.PlantSettings.PlantType;
 
 			if (GetPrefabOfPlant(plantType) is CropPlant crop)
 			{
 				plant.ExecuteAnimationAndDestroy();
 				
 				CropPlant instance = Instantiate(crop, transform);
-				instance.Initialize(plant.PlantDisplay);
+				instance.Initialize(plant.PlantSettings);
 				_planted = instance;
 				
 				ExecuteAnimation("Smoke");
@@ -73,7 +74,7 @@ namespace CropsNDrops.Scripts.Garden.Structures
 								element.ExecuteAnimationAndDestroy();
 								
 								WeedPlant instance = Instantiate(weed, transform);
-								instance.Initialize(weed.Display);
+								instance.Initialize(weed.Settings);
 								_planted = instance;
 								
 								ExecuteAnimation("Smoke");
@@ -116,7 +117,7 @@ namespace CropsNDrops.Scripts.Garden.Structures
 								element.ExecuteAnimationAndDestroy();
 								
 								WeedPlant instance = Instantiate(weed, transform);
-								instance.Initialize(weed.Display);
+								instance.Initialize(weed.Settings);
 								_planted = instance;
 								
 								ExecuteAnimation("Smoke");
@@ -156,7 +157,7 @@ namespace CropsNDrops.Scripts.Garden.Structures
 
 		private GardenPlant GetPrefabOfPlant(PlantType type)
 		{
-			foreach (GardenPlant plant in plantPrefab)
+			foreach (GardenPlant plant in _plantPrefab)
 			{
 				if (plant is CropPlant && type == PlantType.CROPPLANT)
 				{
@@ -174,12 +175,10 @@ namespace CropsNDrops.Scripts.Garden.Structures
 		public PlaceCondition Condition
 		{
 			get { return _condition; }
-			set { _condition = value; }
 		}
 		
 		public List<GardenLand> Neighbours
 		{
-			get { return _neighbours; }
 			set { _neighbours = value; }
 		}
 

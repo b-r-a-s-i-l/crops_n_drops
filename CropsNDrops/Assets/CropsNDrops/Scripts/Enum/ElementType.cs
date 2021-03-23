@@ -2,6 +2,7 @@
 {
 	public enum ElementType
 	{
+		NONE,
 		WATER,
 		SUNSHINE
 	}

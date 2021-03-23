@@ -10,7 +10,7 @@ namespace CropsNDrops.Scripts.Garden.Structures
 
 		[Header("Informations")]
 		[SerializeField] private Vector2 _position = default;
-		[SerializeField] private StrutureType _type = default;
+		[SerializeField] private StrutureType strutureType = default;
 
 		public virtual void Initialize(int x, int y) {}
 		
@@ -19,17 +19,15 @@ namespace CropsNDrops.Scripts.Garden.Structures
 			get { return _position; }
 			set { _position = value; }
 		}
-
-		public StrutureType Type
-		{
-			get { return _type; }
-			set { _type = value; }
-		}
-
-		public SpriteRenderer Renderer
+		
+		protected SpriteRenderer Renderer
 		{
 			get { return _renderer; }
-			set { _renderer = value; }
+		}
+
+		protected StrutureType StrutureType
+		{
+			set { strutureType = value; }
 		}
 	}
 }

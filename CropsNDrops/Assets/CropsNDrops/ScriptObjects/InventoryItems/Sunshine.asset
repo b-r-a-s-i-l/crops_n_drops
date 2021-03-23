@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Sunshine
   m_EditorClassIdentifier: 
   sprite: {fileID: -5181995960469522934, guid: 1ffe0b8f75649d24ea8310705fab7a7f, type: 3}
-  element: 1
+  element: 2

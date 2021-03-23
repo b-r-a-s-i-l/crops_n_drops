@@ -1,71 +1,48 @@
-﻿using CropsNDrops.Scripts.Enum;
-using CropsNDrops.Scripts.Scriptables.Inventory;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 namespace CropsNDrops.Scripts.Inventory
 {
     public class ItemManager : MonoBehaviour
     {
+	    public delegate void ItemManagerEvent();
+	    public event ItemManagerEvent OnGameOver;
+	    
 	    [Header("Definitions")]
-	    [SerializeField] private Text _blockCount = default;
+	    [SerializeField] private ItemGenerator _generator = default;
 	    [SerializeField] private Slot[] _slots = default;
-	    [SerializeField] private Item[] _itemPrefabs = default; 
-	    [SerializeField] private ItemDisplay[] _itemDisplays = default;
-	   
+	    [SerializeField] private Text _blockCount = default;
+
+
 	    [Header("Informations")]
 	    [SerializeField] private int _numberOfBlocks = default;
 
-	    private void Start()
+	    private void Update()
 	    {
-		    foreach (Slot t in _slots)
+		    if (AllSlotsEmpty)
+		    {
+			    GameOver();
+		    }
+	    }
+	    
+	    public void Initialize()
+	    {
+		    _blockCount.text = _numberOfBlocks.ToString();  
+		    
+		    foreach (Slot slot in _slots)
 		    { 
-			    t.PutItem += GerateItemInSlot; 
-			    //Isso funciona por que tô pansando o próprio t.
-			    //t.PutItem += _ => GerateItemInSlot(t);
+			    slot.OnPutItem += GerateItemInSlot;
+			    slot.ItemBox = _generator.GerateItemBox(slot);
 		    }
 	    }
 
 	    private void GerateItemInSlot(Slot slot)
 	    {
-		    UpdateNumberOfBlock();
-		    ItemDisplay itemDisplay = RandomizeItem();
-
-		    switch (itemDisplay)
+		    if (_numberOfBlocks > 0)
 		    {
-			    case PlantItemDisplay _:
-			    {
-				    itemDisplay.Type = ItemType.PLANT;
-				    
-				    foreach (Item itemPrefab in _itemPrefabs)
-				    {
-					    if (itemPrefab is PlantItem)
-					    {
-						    Item item = Instantiate(itemPrefab, slot.transform);
-						    item.Initialize(itemDisplay);
-						    slot.Item = item;
-					    }
-				    }
-				    
-				    return;
-			    }
-			    case ElementalItemDisplay _:
-			    {
-				    itemDisplay.Type = ItemType.ELEMENTAL;
-				    
-				    foreach (Item itemPrefab in _itemPrefabs)
-				    {
-					    if (itemPrefab is ElementItem)
-					    {
-						    Item item = Instantiate(itemPrefab, slot.transform);
-						    item.Initialize(itemDisplay);
-						    slot.Item = item;
-					    }
-				    }
-				    
-				    return;
-			    }
+			    UpdateNumberOfBlock();
+			    slot.ItemBox = _generator.GerateItemBox(slot);
 		    }
 	    }
 
@@ -79,20 +56,31 @@ namespace CropsNDrops.Scripts.Inventory
 		    }  
 	    }
 
-	    private ItemDisplay RandomizeItem()
+	    private bool AllSlotsEmpty
 	    {
-		    //Melhorar mais tarde
+		    get
+		    {
+			    int count = 0;
+			    foreach (Slot slot in _slots)
+			    {
+				    if (slot.DontHaveItem)
+				    {
+					    count++;
+				    }
+			    }
 		    
-		    int i = Random.Range(0, _itemDisplays.Length);
-		    
-		    return _itemDisplays[i];
-	    }
+			    if (count == 3)
+			    {
+				    return true;
+			    }
 
-	    public int NumberOfBlocks
+			    return false;  
+		    }
+	    }
+	    
+	    protected virtual void GameOver()
 	    {
-		    get { return _numberOfBlocks; }
-		    set { _numberOfBlocks = value; }
+		    OnGameOver?.Invoke();
 	    }
-
     }
 }

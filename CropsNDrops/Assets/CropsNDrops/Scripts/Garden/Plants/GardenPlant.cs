@@ -12,24 +12,28 @@ namespace CropsNDrops.Scripts.Garden.Plants
 		[SerializeField] private Animator _animator = default;
 
 		[Header("Informations")]
-		[SerializeField] private PlantDisplay _display = default;
+		[SerializeField] private PlantSettings settings = default;
 
-		public virtual void Initialize(PlantDisplay display)
+		public virtual void Initialize(PlantSettings settings)
 		{ }
 		
 		public virtual void DropOnMe(Item item)
 		{ }
-
-		public SpriteRenderer Renderer
+		
+		public PlantSettings Settings
 		{
-			get { return _renderer; }
-			set { _renderer = value; }
+			get { return settings; }
+			protected set { settings = value; }
 		}
 
-		public PlantDisplay Display
+		protected void ExecuteAnimation(string id)
 		{
-			get { return _display; }
-			set { _display = value; }
+			_animator.SetTrigger(id);
+		}
+
+		protected SpriteRenderer Renderer
+		{
+			get { return _renderer; }
 		}
 	}
 }

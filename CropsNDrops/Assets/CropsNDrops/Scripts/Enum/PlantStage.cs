@@ -7,6 +7,7 @@
 		MIDBUD,
 		HIGHBUD,
 		UNRIPE,
-		RIPE
+		RIPE,
+		HARVESTED
 	}
 }

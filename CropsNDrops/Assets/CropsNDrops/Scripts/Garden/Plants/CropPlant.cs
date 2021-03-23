@@ -1,7 +1,9 @@
 ﻿using System;
 using CropsNDrops.Scripts.Enum;
 using CropsNDrops.Scripts.Inventory;
+using CropsNDrops.Scripts.Inventory.ItemDerivations;
 using CropsNDrops.Scripts.Scriptables.Plants;
+using FMODUnity;
 using UnityEngine;
 
 namespace CropsNDrops.Scripts.Garden.Plants
@@ -10,17 +12,22 @@ namespace CropsNDrops.Scripts.Garden.Plants
 	{
 		[SerializeField] private PlantStage _actualsStage = default;
 		[SerializeField] private ElementType _nextStageRequeriment = default;
+		[SerializeField] private int _score = default;
 		[SerializeField] private CropLevelSettings[] _levelSettings = default;
-		
-		public override void Initialize(PlantDisplay display)
+		[SerializeField] private SpriteRenderer _requerimentRenderer = default;
+		[SerializeField] private Sprite[] _requirementSprites = default;
+		[SerializeField] private StudioEventEmitter _emitter = default;
+		public override void Initialize(PlantSettings settings)
 		{
-			Display = display;
+			Settings = settings;
 			
-			if (Display is CropPlantDisplay cropPlantDisplay)
+			if (Settings is CropPlantSettings cropPlantDisplay)
 			{
+				_score = cropPlantDisplay.score;
 				_levelSettings = cropPlantDisplay.cropLevelSettings;
 				transform.localPosition = Vector3.zero;
 				SetLevel(cropPlantDisplay.startLevel);
+				SetRequerimentSprite(_nextStageRequeriment);
 			}
 			else
 			{
@@ -37,12 +44,14 @@ namespace CropsNDrops.Scripts.Garden.Plants
 					ElementType elementType = elementItem.ElementType;
 					ApllyItemToGrow(elementType);
 					elementItem.ExecuteAnimationAndDestroy();
+					ExecuteAnimation("Smoke");
 					return;
 				}
 				case PlantItem plantItem:
 				{
 					Destroy(gameObject, .1f);
 					plantItem.ExecuteAnimationAndDestroy();
+					ExecuteAnimation("Smoke");
 					return;
 				}
 			}
@@ -58,6 +67,7 @@ namespace CropsNDrops.Scripts.Garden.Plants
 					_actualsStage = levelSetting.stage;
 					_nextStageRequeriment = levelSetting.nextStageRequeriment;
 					Renderer.sprite = levelSetting.sprite;
+					SetRequerimentSprite(_nextStageRequeriment);
 				}
 			}
 		}
@@ -80,10 +90,40 @@ namespace CropsNDrops.Scripts.Garden.Plants
 			}
 		}
 
-		public void TakeTheBasket()
+		private void SetRequerimentSprite(ElementType elementType)
 		{
-			//metodo para pontuar
-			Destroy(gameObject);
+			switch (elementType)
+			{
+				case ElementType.WATER:
+				{
+					_requerimentRenderer.sprite = _requirementSprites[0];
+					return;
+				}
+				case ElementType.SUNSHINE:
+				{
+					_requerimentRenderer.sprite = _requirementSprites[1];
+					return;
+				}
+				case ElementType.NONE:
+				{
+					_requerimentRenderer.sprite = null;
+					return;
+				}
+			}
+		}
+
+		public StudioEventEmitter Emitter
+		{
+			get { return _emitter; }
+		}
+		
+		public PlantStage ActualsStage
+		{
+			get { return _actualsStage; }
+		}
+		public int Score
+		{
+			get { return _score; }
 		}
 	}
 }
